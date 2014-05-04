@@ -55,11 +55,10 @@ module Lita
         end
 
         def message(target, strings)
-          text = strings.join("\n")[0...140]
+          text = strings.join("\n")[0...120]
           if target.private_message
             rest_client.create_direct_message(target.user.name, text)
           elsif target.user
-            text = "@#{target.user.name} #{text}"[0...140]
             rest_client.update(text, in_reply_to_status_id: target.room)
           else
             rest_client.update(text)
