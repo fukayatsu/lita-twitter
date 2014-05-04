@@ -55,13 +55,20 @@ module Lita
         end
 
         def message(target, strings)
-          text = strings.join("\n")[0...140]
-          if target.private_message
-            rest_client.create_direct_message(target.user.name, text)
-          elsif target.user
-            rest_client.update(text, in_reply_to_status_id: target.room)
-          else
-            rest_client.update(text)
+          tries = 0
+          text  = strings.join("\n")[0...137]
+          begin
+            if target.private_message
+              rest_client.create_direct_message(target.user.name, text)
+            elsif target.user
+              rest_client.update(text, in_reply_to_status_id: target.room)
+            else
+              rest_client.update(text)
+            end
+          rescue Twitter::Error::DuplicateStatus => e
+            tries += 1
+            text  += "⠀" #U+2800
+            retry if tries <= 3
           end
         end
 
