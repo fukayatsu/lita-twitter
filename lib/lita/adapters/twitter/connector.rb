@@ -55,7 +55,7 @@ module Lita
         end
 
         def message(target, strings)
-          text = strings.join("\n")[0...120]
+          text = strings.join("\n")[0...140]
           if target.private_message
             rest_client.create_direct_message(target.user.name, text)
           elsif target.user
