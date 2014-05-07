@@ -20,7 +20,10 @@ module Lita
       # Twitter does not support these methods.
       def join; end
       def part; end
-      def set_topic; end
+
+      def set_topic(target, topic)
+        connector.update_name(topic)
+      end
 
       def send_messages(target, strings)
         connector.message(target, strings)

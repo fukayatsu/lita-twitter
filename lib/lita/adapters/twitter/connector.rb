@@ -72,6 +72,10 @@ module Lita
           end
         end
 
+        def update_name(name)
+          rest_client.update_profile(name: topic)
+        end
+
         def rooms
         end
 
