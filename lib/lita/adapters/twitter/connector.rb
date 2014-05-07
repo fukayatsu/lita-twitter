@@ -50,6 +50,9 @@ module Lita
                 message.command!
                 robot.receive(message)
               end
+            when ::Twitter::Streaming::Event
+              event = object
+              on_streaming_event(event) if event.source.screen_name != robot.name
             end
           end
         end
@@ -84,6 +87,20 @@ module Lita
           rest_client.unfollow(user)
         end
 
+        private
+        def on_streaming_event(event)
+          # see: https://dev.twitter.com/docs/streaming-apis/messages
+
+          user = User.new(event.source.id, name: event.source.screen_name)
+          case event.name
+          when :favorite
+            robot.trigger(:favorited, user: user, tweet: event.target_object)
+          when :unfavorite
+            robot.trigger(:unfavorited, user: user, tweet: event.target_object)
+          when :follow
+            robot.trigger(:followed, user: user)
+          end
+        end
       end
     end
     Lita.register_adapter(:twitter, Twitter)
