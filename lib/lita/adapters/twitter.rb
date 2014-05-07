@@ -17,9 +17,13 @@ module Lita
       end
       attr_reader :connector
 
-      # Twitter does not support these methods.
-      def join; end
-      def part; end
+      def join(user)
+        connector.follow(user)
+      end
+
+      def part(user)
+        connector.unfollow(user)
+      end
 
       def set_topic(target, topic)
         connector.update_name(topic)
@@ -37,7 +41,6 @@ module Lita
       end
 
       def shut_down
-        connector.shut_down
         robot.trigger(:disconnected)
       end
 

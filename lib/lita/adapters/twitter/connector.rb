@@ -76,13 +76,14 @@ module Lita
           rest_client.update_profile(name: topic)
         end
 
-        def rooms
+        def join(user)
+          rest_client.follow(user)
         end
 
-        def shut_down
+        def part(user)
+          rest_client.unfollow(user)
         end
 
-      private
       end
     end
     Lita.register_adapter(:twitter, Twitter)
