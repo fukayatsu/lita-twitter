@@ -18,11 +18,11 @@ module Lita
       attr_reader :connector
 
       def join(user)
-        connector.follow(user)
+        connector.join(user)
       end
 
       def part(user)
-        connector.unfollow(user)
+        connector.part(user)
       end
 
       def set_topic(target, topic)
