@@ -68,7 +68,7 @@ module Lita
             else
               rest_client.update(text)
             end
-          rescue Twitter::Error::DuplicateStatus => e
+          rescue ::Twitter::Error::DuplicateStatus => e
             tries += 1
             text  += "⠀" #U+2800
             retry if tries <= 3
