@@ -4,7 +4,11 @@ require 'lita/adapters/twitter/connector'
 module Lita
   module Adapters
     class Twitter < Adapter
-      require_configs :api_key, :api_secret, :access_token, :access_token_secret
+      config :api_key, required: true
+      config :api_secret, required: true
+      config :access_token, required: true
+      config :access_token_secret, required: true
+      config :debug, default: false
 
       def initialize(robot)
         super
@@ -46,15 +50,6 @@ module Lita
 
       def mention_format(name)
         "@#{name}"
-      end
-
-      private
-      def config
-        Lita.config.adapter
-      end
-
-      def debug
-        config.debug || false
       end
 
       Lita.register_adapter(:twitter, Twitter)
