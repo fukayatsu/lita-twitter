@@ -29,10 +29,11 @@ Lita.configure do |config|
   config.robot.name        = "your-bot-name"
   config.robot.log_level   = :info
   config.robot.adapter     = :twitter
-  config.adapter.api_key             = "***"
-  config.adapter.api_secret          = "***"
-  config.adapter.access_token        = "***"
-  config.adapter.access_token_secret = "***"
+
+  config.adapters.twitter.api_key             = "***"
+  config.adapters.twitter.api_secret          = "***"
+  config.adapters.twitter.access_token        = "***"
+  config.adapters.twitter.access_token_secret = "***"
 end
 ```
 
