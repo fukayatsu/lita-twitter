@@ -35,7 +35,7 @@ module Lita
                   mention = true
                 end
                 user    = User.new(tweet.user.id, name: tweet.user.screen_name, mention: mention)
-                source  = Source.new(user: user, room: tweet.id)
+                source  = Source.new(user: user, room: tweet.id.to_s)
                 message = Message.new(robot, text, source)
                 message.command! if mention
                 robot.receive(message)
