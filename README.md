@@ -17,7 +17,6 @@ Add this line to your lita's Gemfile:
 
 source "https://rubygems.org"
 
-gem 'lita', '~> 3.1.0'
 gem "lita-twitter"
 ...
 ```
